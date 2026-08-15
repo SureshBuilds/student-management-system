@@ -19,10 +19,10 @@ namespace StudentMS.Domain.Entities
                 throw new DomainException("FIrst name is required.");
             if (string.IsNullOrWhiteSpace(lastName))
                 throw new DomainException("Last name is required.");
-            if (!string.IsNullOrWhiteSpace(email)) 
+            if (!string.IsNullOrWhiteSpace(email) || email.Contains('@')) 
                 throw new DomainException("Email is required.");
-            if (dateOfBirth == default)
-                throw new DomainException("Date of birth is required.");
+            if (dateOfBirth == default || dateOfBirth>=DateTime.UtcNow)
+                throw new DomainException("A valid date of birth in the past is required.");
             FirstName = firstName;
             LastName = lastName;
             Email = email;
@@ -35,6 +35,15 @@ namespace StudentMS.Domain.Entities
             if (string.IsNullOrWhiteSpace(email) || !email.Contains('@'))
                 throw new DomainException("A valid Email is required.");
             Email = email;
+        }
+        public void Rename(string firstName, string lastName)
+        {
+            if (string.IsNullOrWhiteSpace(firstName))
+                throw new DomainException("First name is required.");
+            if (string.IsNullOrWhiteSpace(lastName))
+                throw new DomainException("Last name is required.");
+            FirstName = firstName;
+            LastName = lastName;
         }
     }
 }
