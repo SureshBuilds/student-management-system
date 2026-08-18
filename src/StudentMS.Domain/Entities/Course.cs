@@ -21,5 +21,17 @@ namespace StudentMS.Domain.Entities;
         Code = code;
         Credits = credits;
     }
+    public void UpdateDetails(string title, string code, decimal credits)
+    {
+        if (string.IsNullOrWhiteSpace(title))
+            throw new DomainException("Title is required.");
+        if (string.IsNullOrWhiteSpace(code))
+            throw new DomainException("Code is required.");
+        if (credits <= 0)
+            throw new DomainException("Credits must be greater than zero.");
+        Title = title;
+        Code = code;
+        Credits = credits;
+    }
 
 }
