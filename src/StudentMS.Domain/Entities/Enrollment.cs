@@ -1,4 +1,5 @@
-﻿using StudentMS.Domain.Enums;
+﻿using StudentMS.Domain.Common;
+using StudentMS.Domain.Enums;
 using StudentMS.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace StudentMS.Domain.Entities;
 
-    public class Enrollment
+    public class Enrollment:BaseEntity
     {
         public Student Student { get; private set; } = default!;
         public Guid StudentId { get; private set; }
