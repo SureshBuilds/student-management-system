@@ -15,6 +15,7 @@ namespace StudentMS.Application.Services
         {
             _courseRepository = courseRepository;
         }
+
         public async Task<CourseDto?> GetByIdAsync(Guid id)
         {
             var course=await _courseRepository.GetByIdAsync(id);
@@ -22,17 +23,20 @@ namespace StudentMS.Application.Services
             return MapToDto(course);
 
         }
+
         public async Task<IEnumerable<CourseDto>> GetAllAsync()
         {
             var courses = await _courseRepository.GetAllAsync();
             return courses.Select(MapToDto);
         }
-        public async Task<CourseDto?> CreateAsync(CreateCourseDto dto)
+
+        public async Task<CourseDto> CreateAsync(CreateCourseDto dto)
         {
             var course = new Course(dto.Title, dto.Code, dto.Credits);
             await _courseRepository.AddAsync(course);
             return MapToDto(course);
         }
+
         public async Task<CourseDto?> UpdateAsync(UpdateCourseDto dto)
         {
             var course = await _courseRepository.GetByIdAsync(dto.Id);
@@ -41,10 +45,10 @@ namespace StudentMS.Application.Services
             await _courseRepository.UpdateAsync(course);
             return MapToDto(course);
         }
+
         public async Task DeleteAsync(Guid id)
         {
             await _courseRepository.DeleteAsync(id);
-
         }
 
         private static CourseDto MapToDto(Course course)
